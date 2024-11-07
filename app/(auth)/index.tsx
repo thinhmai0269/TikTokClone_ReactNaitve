@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import { Link, router } from 'expo-router';
 import { supabase } from '@/utils/supabase';
 import { AuthContext, useAuth } from '@/providers/AuthProvider';
+
 export default function () {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

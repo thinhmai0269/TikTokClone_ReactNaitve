@@ -1,4 +1,4 @@
-import { Tabs } from 'expo-router';
+import { router, Tabs } from 'expo-router';
 import React from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Text, View } from 'react-native';
@@ -23,32 +23,38 @@ export default function TabLayout() {
         name="friends"
         options={{
           title: 'Friends',
-          tabBarIcon: ({ focused }) => <Ionicons name={focused ? "people" : "people-outline"}  size={24} color="black" />
+          tabBarIcon: ({ focused }) => <Ionicons name={focused ? "people" : "people-outline"} size={24} color="black" />
         }}
       />
       <Tabs.Screen
-        name="camera"
+        name="empty"
         options={{
-          title: 'Camera',
+          tabBarLabel: () => null,
           tabBarIcon: () =>
-            <View className="absolute ">
-              <Ionicons name="add-circle" size={50} color="black" />
+            <View className="absolute bottom-2">
+              <Ionicons name="add-circle" size={60} color="black" />
             </View>
         }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            router.push('/camera')
+          }
+        }}
       />
-      
+
       <Tabs.Screen
         name="inbox"
         options={{
           title: 'Inbox',
-          tabBarIcon: ({ focused }) => <Ionicons name={focused ? "chatbox-ellipses" : "chatbox-ellipses-outline"}  size={24} color="black" />
+          tabBarIcon: ({ focused }) => <Ionicons name={focused ? "chatbox-ellipses" : "chatbox-ellipses-outline"} size={24} color="black" />
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ focused }) => <Ionicons name={focused ? "person" : "person-outline"}  size={24} color="black" />
+          tabBarIcon: ({ focused }) => <Ionicons name={focused ? "person" : "person-outline"} size={24} color="black" />
         }}
       />
     </Tabs>
