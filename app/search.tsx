@@ -1,6 +1,6 @@
 import { View, Image, Text, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native'
 import React, { useState } from 'react'
-import { useLocalSearchParams, usePathname } from 'expo-router'
+import { router, useLocalSearchParams, usePathname } from 'expo-router'
 import Header from '@/components/header';
 import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '@/utils/supabase';
@@ -17,7 +17,7 @@ export default function search() {
       .select('*')
       .eq('username', text)
     console.log('data search user', data)
-    setResult(data)
+    if(data)  setResult(data)
   }
   return (
     <SafeAreaView >
@@ -58,15 +58,15 @@ export default function search() {
         data={result}
         
         renderItem={({ item: user }) => (
-          <View className="flex-row gap-2 items-start justify-start w-full mt-2 mx-4">
+          <TouchableOpacity className="flex-row gap-2 items-start justify-start w-full mt-2 mx-4" onPress={() => router.push(`/user?user_id=${user.id}`)}>
             <Image
-              className="w-11 h-11 rounded-full bg-black"
+              className="w-10 h-10rounded-full "
               source={{ uri: 'https://default-url-to-image.jpg' }} // Adjust image source if needed
             />
             <View>
               <Text className="font-bold text-lg">{user?.username}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </SafeAreaView>

@@ -39,8 +39,6 @@ export default function App() {
     });
 
     setVideouri(result.assets[0].uri);
-
-
   };
 
   // Check if permissions are still loading

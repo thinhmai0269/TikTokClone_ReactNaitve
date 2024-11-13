@@ -2,20 +2,19 @@ import { Dimensions, FlatList, Text, View } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@/providers/AuthProvider';
 import { supabase } from '@/utils/supabase';
-import { ResizeMode, Video } from 'expo-av';
 import VideoPlayer from '@/components/video';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Header from '@/components/header';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function VideoScreen() {
   const { user } = useAuth();
   const [videos, setVideos] = useState<any[]>([]);
-  const videoRef = useRef<Video>(null);
+  const videoRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState<string | null>(null)
-
+  const isForcus = useIsFocused();
   useEffect(() => {
     getVideo();
-  }, []);
+  }, [isForcus]);
 
   const getVideo = async () => {
     const { data, error } = await supabase
@@ -23,7 +22,7 @@ export default function VideoScreen() {
       .select('*, User(*)');
 
     if (error) {
-      console.error("Error fetching videos:", error);
+      console.log("Error fetching videos:", error);
       return;
     }
 
@@ -72,7 +71,7 @@ export default function VideoScreen() {
         showsVerticalScrollIndicator={false}
         onViewableItemsChanged={e => setActiveIndex(e.viewableItems[0].key)}
         renderItem={({ item }) =>
-          <VideoPlayer video={item} isViewable={activeIndex === item.id} />
+          <VideoPlayer video={item} isViewable={activeIndex === item.id && isForcus} />
         }
       />
 

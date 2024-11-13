@@ -37,7 +37,10 @@ export default function RootLayout() {
           <Stack.Screen name="camera" options={{ headerShown: false }} />
           <Stack.Screen name="user" options={{ headerShown: false }} />
           <Stack.Screen name="search" options={{ headerShown: false }} />
-          <Stack.Screen name="comment" options={{ headerShown: false}} />
+          <Stack.Screen name="comment" options={{ headerShown: false }} />
+          <Stack.Screen name="follower" options={{ headerShown: false }} />
+          <Stack.Screen name="activity" options={{ headerShown: false }} />
+          <Stack.Screen name="chat" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
 
